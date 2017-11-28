@@ -1,5 +1,5 @@
-Группа 2017-11
+Р“СЂСѓРїРїР° 2017-11
 
-Ruslan Mukhametov (Руслан Мухаметов)
+Ruslan Mukhametov (Р СѓСЃР»Р°РЅ РњСѓС…Р°РјРµС‚РѕРІ)
 
 r.r.mukhametov@gmail.com
