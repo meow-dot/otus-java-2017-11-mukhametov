@@ -26,9 +26,7 @@ public class Main {
 
         try {
             wb.write(fileOut);
-            if (fileOut != null) {
-                fileOut.close();
-            }
+            fileOut.close();
         } catch (IOException e) {
             System.out.println("Что-то пошло не так");
         }
