@@ -30,28 +30,39 @@ public class MyArrayList<E> implements List<E> {
 
     private void increaseCapacity() {
         Object[] temp = new Object[capacity()*2];
-        System.arraycopy(objects, 0, temp, 0, objects.length);
+        System.arraycopy(objects, 0, temp, 0, objects.length); //refactor
         objects = temp;
     }
 
     public boolean add(Object obj) {
         if (!ableToAdd())
             increaseCapacity();
-        objects[size + 1] = obj;      //check
+        objects[size] = obj;      //check
         size++;
         return true;                //check
     }
 
     public boolean remove(Object obj) {
-        for (Object object : objects) {
-            if (object.equals(obj)) {
-                object = null;
+        for (int i = 0; i < size(); i++) {
+            if (objects[i].equals(obj)) {
+                objects[i] = null;
+                System.arraycopy(objects, i+1, objects, i, size()-i-1);
+                size--;
                 return true;
             }
         }
         return false;
     }
 
+    public MyArrayList<E> trim() {
+        for (int i = 0; i < size(); i++) {
+            if (objects[i] == null) {
+                System.arraycopy(objects, 0, objects, 0, i);
+                break;
+            }
+        }
+        return this;
+    }
     public boolean addAll(Collection<? extends E> c) {
         while (size() + c.size() > capacity()) {
             increaseCapacity();
@@ -63,8 +74,29 @@ public class MyArrayList<E> implements List<E> {
         return true;
     }
 
-    public Iterator iterator() {
-        return null;
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<E> {
+
+        private int nextIndex = 0;
+
+        public boolean hasNext() {
+            return nextIndex!=size();
+        }
+
+        @SuppressWarnings("unchecked")
+        public E next() {
+            int currentIndex = nextIndex;
+            nextIndex++;
+            return (E)objects[currentIndex];
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void sort(Comparator<? super E> c) {
+         Arrays.sort((E[]) objects, 0, size, c);
     }
 
     //not changed
@@ -81,7 +113,6 @@ public class MyArrayList<E> implements List<E> {
         return false;
     }
     public void replaceAll(UnaryOperator operator) {}
-    public void sort(Comparator c) {}
     public void clear() {}
     public E set(int index, Object element) {
         return null;
