@@ -67,7 +67,7 @@ public class MyArrayList<E> implements List<E> {
 
     private void increaseCapacity() {
         Object[] temp = new Object[capacity()*2];
-        System.arraycopy(objects, 0, temp, 0, objects.length); //refactor
+        System.arraycopy(objects, 0, temp, 0, objects.length);
         objects = temp;
     }
 
