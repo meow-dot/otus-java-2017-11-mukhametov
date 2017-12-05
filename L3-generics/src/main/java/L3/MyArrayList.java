@@ -1,3 +1,5 @@
+package L3;
+
 import java.util.*;
 import java.util.function.UnaryOperator;
 
@@ -16,30 +18,17 @@ public class MyArrayList<E> implements List<E> {
         return (E) objects[index];
     }
 
-    public int size() {
-        return size;
+    public E set(int index, E element) {
+        objects[index] = element;
+        return element;
     }
 
-    private int capacity() {
-        return objects.length;
-    }
-
-    private boolean ableToAdd() {
-        return (size + 1 < capacity());
-    }
-
-    private void increaseCapacity() {
-        Object[] temp = new Object[capacity()*2];
-        System.arraycopy(objects, 0, temp, 0, objects.length); //refactor
-        objects = temp;
-    }
-
-    public boolean add(Object obj) {
+    public boolean add(E element) {
         if (!ableToAdd())
             increaseCapacity();
-        objects[size] = obj;      //check
+        objects[size] = element;
         size++;
-        return true;                //check
+        return true;
     }
 
     public boolean remove(Object obj) {
@@ -54,24 +43,32 @@ public class MyArrayList<E> implements List<E> {
         return false;
     }
 
-    public MyArrayList<E> trim() {
-        for (int i = 0; i < size(); i++) {
-            if (objects[i] == null) {
-                System.arraycopy(objects, 0, objects, 0, i);
-                break;
-            }
-        }
-        return this;
-    }
     public boolean addAll(Collection<? extends E> c) {
         while (size() + c.size() > capacity()) {
             increaseCapacity();
         }
-        int startPoint = size() + 1;
         Object[] temp = c.toArray();
         System.arraycopy(temp, 0, objects, size() + 1, temp.length);
         size += temp.length;
         return true;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    private int capacity() {
+        return objects.length;
+    }
+
+    private boolean ableToAdd() {
+        return (size() + 1 < capacity());
+    }
+
+    private void increaseCapacity() {
+        Object[] temp = new Object[capacity()*2];
+        System.arraycopy(objects, 0, temp, 0, objects.length); //refactor
+        objects = temp;
     }
 
     public Iterator<E> iterator() {
@@ -99,7 +96,8 @@ public class MyArrayList<E> implements List<E> {
          Arrays.sort((E[]) objects, 0, size, c);
     }
 
-    //not changed
+
+    //not defined
     public boolean isEmpty() {
         return false;
     }
@@ -114,9 +112,6 @@ public class MyArrayList<E> implements List<E> {
     }
     public void replaceAll(UnaryOperator operator) {}
     public void clear() {}
-    public E set(int index, Object element) {
-        return null;
-    }
     public void add(int index, Object element) {    }
     public E remove(int index) {return null;}
     public int indexOf(Object o) {

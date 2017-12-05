@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package L3;
+
 import java.util.Collections;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
         secondList.add("");
         secondList.add("");
         secondList.add("");
-        Collections.copy(secondList, firstList); //do not work
+        Collections.copy(secondList, firstList);
 
         Collections.addAll(secondList,"F","E","D");
         Collections.sort(secondList);
