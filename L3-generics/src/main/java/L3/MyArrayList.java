@@ -19,6 +19,9 @@ public class MyArrayList<E> implements List<E> {
     }
 
     public E set(int index, E element) {
+        if (index < 0 || index >= capacity()) {
+            throw new IndexOutOfBoundsException();
+        }
         objects[index] = element;
         return element;
     }
@@ -66,14 +69,14 @@ public class MyArrayList<E> implements List<E> {
     }
 
     private void increaseCapacity() {
-        Object[] temp = new Object[capacity()*2];
-        System.arraycopy(objects, 0, temp, 0, objects.length);
-        objects = temp;
+        objects = Arrays.copyOf(new Object[capacity()*2], objects.length);
     }
 
     public Iterator<E> iterator() {
         return new MyIterator();
     }
+
+    public ListIterator<E> listIterator() { return new MyListIterator(); }
 
     private class MyIterator implements Iterator<E> {
 
@@ -91,11 +94,47 @@ public class MyArrayList<E> implements List<E> {
         }
     }
 
+    private class MyListIterator implements ListIterator<E> {
+
+        private int nextIndex = 0;
+
+        public boolean hasNext() {
+            return nextIndex != size();
+        }
+
+        @SuppressWarnings("unchecked")
+        public E next() {
+            nextIndex++;
+            return (E)objects[previousIndex()];
+        }
+
+        public boolean hasPrevious() {
+            return nextIndex() != 0 ;
+        }
+
+        public int nextIndex() {
+            return nextIndex;
+        }
+
+        public int previousIndex() {
+            if (hasPrevious()) return nextIndex()-1;
+            throw new IndexOutOfBoundsException();
+        }
+
+        public void set(E e) {
+            MyArrayList.this.set(previousIndex(), e);
+        }
+
+        //not defined
+        public void remove() {}
+        public E previous() {return null;}
+        public void add(E e) {}
+    }
+
     @SuppressWarnings("unchecked")
     public void sort(Comparator<? super E> c) {
          Arrays.sort((E[]) objects, 0, size, c);
     }
-
 
     //not defined
     public boolean isEmpty() {
@@ -119,9 +158,6 @@ public class MyArrayList<E> implements List<E> {
     }
     public int lastIndexOf(Object o) {
         return 0;
-    }
-    public ListIterator<E> listIterator() {
-        return null;
     }
     public ListIterator<E> listIterator(int index) {
         return null;
