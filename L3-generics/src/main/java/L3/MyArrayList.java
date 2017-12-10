@@ -73,26 +73,10 @@ public class MyArrayList<E> implements List<E> {
     }
 
     public Iterator<E> iterator() {
-        return new MyIterator();
+        return new MyListIterator();
     }
 
     public ListIterator<E> listIterator() { return new MyListIterator(); }
-
-    private class MyIterator implements Iterator<E> {
-
-        private int nextIndex = 0;
-
-        public boolean hasNext() {
-            return nextIndex!=size();
-        }
-
-        @SuppressWarnings("unchecked")
-        public E next() {
-            int currentIndex = nextIndex;
-            nextIndex++;
-            return (E)objects[currentIndex];
-        }
-    }
 
     private class MyListIterator implements ListIterator<E> {
 
