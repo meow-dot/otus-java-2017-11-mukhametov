@@ -45,7 +45,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>l5.MyBinaryOperator</mainClass>
+                            <mainClass>l5.framework.MyTestFramework</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
