@@ -12,6 +12,6 @@ public class InvalidBanknotesException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Недействительные банкноты: " + list.toString();
+        return "Invalid banknotes: " + list.toString();
     }
 }
