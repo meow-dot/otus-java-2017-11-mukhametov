@@ -1,85 +1,53 @@
 package l6.model;
 
-import l6.exceptions.InvalidBanknotesException;
 import l6.exceptions.NotEnoughMoneyException;
-import static l6.model.Banknote.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class ATM {
 
-    private final static Banknote[] VALUE_ORDER = {Hundred, Fifty, Ten, Five, One};
-
-    private int oneBanknoteNumber = 0;
-    private int fiveBanknoteNumber = 0;
-    private int tenBanknoteNumber = 0;
-    private int fiftyBanknoteNumber = 0;
-    private int hundredBanknoteNumber = 0;
+    private Map<Banknote, Integer> banknotes = new HashMap<>();
 
     public int getBalance(){
-        return oneBanknoteNumber +
-                5*fiveBanknoteNumber +
-                10*tenBanknoteNumber +
-                50*fiftyBanknoteNumber +
-                100*hundredBanknoteNumber;
+        int balance = 0;
+        for (Banknote bn : banknotes.keySet()) {
+            balance += bn.getValue() * banknotes.get(bn);
+        }
+        return balance;
     }
 
-    public void addMoney(ArrayList<Object> in) throws InvalidBanknotesException {
-        ArrayList<Object> invalidBanknotes = new ArrayList<>();
-        for (Object bn : in) {
-            if (bn.equals(One) || bn.equals(Five) || bn.equals(Ten) || bn.equals(Fifty) || bn.equals(Hundred)) {
-                editNumberOfBanknotes((Banknote) bn, 1);
-            }
-            else {
-                invalidBanknotes.add(bn);
+    public void addMoney(ArrayList<Banknote> in) {
+        for (Banknote bn : in) {
+            if (banknotes.containsKey(bn)) {
+                banknotes.put(bn, banknotes.get(bn) + 1);
+            } else {
+                banknotes.put(bn, 1);
             }
         }
-        if (invalidBanknotes.size() > 0) throw new InvalidBanknotesException(invalidBanknotes);
     }
 
     public ArrayList<Banknote> getMoney(int need) throws NotEnoughMoneyException {
         if (need > getBalance()) {
             throw new NotEnoughMoneyException();
         }
-        ArrayList<Banknote> banknotes = new ArrayList<>();
+        ArrayList<Banknote> out = new ArrayList<>();
         int issued = 0;
-        for (Banknote bn : VALUE_ORDER) {
-            while (getNumberOfBanknotes(bn) > 0 && issued + bn.getValue() <= need) {
-                banknotes.add(bn);
+        for (Banknote bn : getSortedBanknotesByValue()) {
+            while (banknotes.get(bn) > 0 && issued + bn.getValue() <= need) {
+                out.add(bn);
                 issued += bn.getValue();
-                editNumberOfBanknotes(bn, -1);
+                banknotes.put(bn, banknotes.get(bn) - 1);
             }
         }
-        return banknotes;
+        return out;
     }
 
-    private void editNumberOfBanknotes(Banknote banknote, int diff) {
-        this.setNumberOfBanknotes(banknote, this.getNumberOfBanknotes(banknote) + diff);
-    }
-
-    public ATM setNumberOfBanknotes(Banknote banknote, int amount) {
-        switch (banknote) {
-            case One:       this.oneBanknoteNumber = amount;
-                            break;
-            case Five:      this.fiveBanknoteNumber = amount;
-                            break;
-            case Ten:       this.tenBanknoteNumber = amount;
-                            break;
-            case Fifty:     this.fiftyBanknoteNumber = amount;
-                            break;
-            case Hundred:   this.hundredBanknoteNumber = amount;
-                            break;
-        }
-        return this;
-    }
-
-    private int getNumberOfBanknotes(Banknote banknote) {
-        switch (banknote) {
-            case One:       return oneBanknoteNumber;
-            case Five:      return fiveBanknoteNumber;
-            case Ten:       return tenBanknoteNumber;
-            case Fifty:     return fiftyBanknoteNumber;
-            case Hundred:   return hundredBanknoteNumber;
-        }
-        return 0;
+    private List<Banknote> getSortedBanknotesByValue() {
+        List<Banknote> sortedList = new ArrayList<>(banknotes.keySet());
+        Collections.sort(sortedList, new Comparator<Banknote>() {
+            @Override
+            public int compare(Banknote b1, Banknote b2) {
+                return b2.getValue() - b1.getValue();
+            }});
+        return sortedList;
     }
 }
