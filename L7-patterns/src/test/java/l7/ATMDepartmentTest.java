@@ -5,7 +5,7 @@ import l7.model.Department;
 import org.junit.Before;
 import org.junit.Test;
 
-import static l6.model.Banknote.*;
+import static l7.model.Banknote.*;
 import static org.junit.Assert.*;
 
 public class ATMDepartmentTest {

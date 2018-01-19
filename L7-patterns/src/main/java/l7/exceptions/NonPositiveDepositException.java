@@ -1,4 +1,4 @@
-package l6.exceptions;
+package l7.exceptions;
 
 public class NonPositiveDepositException extends Exception {
     @Override

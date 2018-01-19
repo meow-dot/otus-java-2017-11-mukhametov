@@ -1,4 +1,4 @@
-package l6.model;
+package l7.model;
 
 public enum  Banknote {
     Hundred(100),

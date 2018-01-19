@@ -1,4 +1,4 @@
-package l6.exceptions;
+package l7.exceptions;
 
 public class NotEnoughMoneyException extends Exception {
     @Override

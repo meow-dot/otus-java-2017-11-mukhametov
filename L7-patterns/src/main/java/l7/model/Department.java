@@ -1,8 +1,7 @@
 package l7.model;
 
-import l6.exceptions.NonPositiveDepositException;
-import l6.exceptions.NotEnoughMoneyException;
-import l6.model.Banknote;
+import l7.exceptions.NonPositiveDepositException;
+import l7.exceptions.NotEnoughMoneyException;
 
 import java.util.*;
 

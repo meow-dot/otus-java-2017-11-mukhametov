@@ -1,12 +1,12 @@
-package l6.model;
+package l7.model;
 
-import l6.exceptions.NonPositiveDepositException;
-import l6.exceptions.NotEnoughMoneyException;
+import l7.exceptions.NonPositiveDepositException;
+import l7.exceptions.NotEnoughMoneyException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static l6.model.Banknote.*;
+import static l7.model.Banknote.*;
 
 public class AutomatedTellerMachine {
 

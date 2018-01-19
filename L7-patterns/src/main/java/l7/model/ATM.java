@@ -1,7 +1,5 @@
 package l7.model;
 
-import l6.model.AutomatedTellerMachine;
-
 public class ATM extends AutomatedTellerMachine {
 
     private Department department;
