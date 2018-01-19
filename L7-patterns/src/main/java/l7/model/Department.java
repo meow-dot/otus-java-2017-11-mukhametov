@@ -6,78 +6,68 @@ import l7.exceptions.NotEnoughMoneyException;
 import java.util.*;
 
 public class Department {
-    
-    private final Map<ATM, Map<Banknote, Integer>> atms = new HashMap<>();
-    
-    private int balTemp = 0;
-    private Map<Banknote, Integer> conTemp = new HashMap<>();
 
-    public void registerATM (ATM atm) {
-        Map<Banknote, Integer> condition = new HashMap<>();
-        updateConditionTemp(atm);
-        for (Banknote bn : conTemp.keySet()) {
-            condition.put(bn, conTemp.get(bn));
+    private ArrayList<ATM> atms = new ArrayList<>();
+    private Map<ATM, Integer> balances = new HashMap<>();
+    private final Map<ATM, Map<Banknote, Integer>> differences = new HashMap<>();
+
+    void registerATM (ATM a) {
+        atms.add(a);
+    }
+    
+    public void unRegisterATM (ATM a) {
+        if (atms.contains(a)) {
+            atms.remove(a);
         }
-        atms.put(atm, condition);
-    }
-    
-    public void unRegisterATM (ATM atm) {
-        atms.remove(atm);
+        if (balances.containsKey(a)) {
+            balances.remove(a);
+        }
+        if (differences.containsKey(a)) {
+            differences.remove(a);
+        }
     }
 
-    protected void updateBalanceTemp(ATM atm) {
+    private void updateBalance(ATM atm) {
         atm.sendBalance();
     }
 
-    protected void updateConditionTemp(ATM atm) {
-        atm.sendCondition();
+    private void updateDifference(ATM atm) {
+        atm.sendDifference();
     }
 
-    void setBalanceTemp(int balance) {
-        this.balTemp = balance;
+    void putBalance(ATM atm, int balance) {
+        balances.put(atm, balance);
     }
 
-    void setConditionTemp(Map<Banknote, Integer> condition) {
-        this.conTemp = condition;
+    void putDifference(ATM atm, Map<Banknote, Integer> difference) {
+        differences.put(atm, difference);
     }
     
     public int getOverallBalance() {
         int sum = 0;
-        for (ATM atm : getAllATMs()) {
-            updateBalanceTemp(atm);
-            sum += balTemp;
+        for (ATM a : atms) {
+            updateBalance(a);
+            sum += balances.get(a);
         }
         return sum;
     }
-    
-    public List<ATM> getAllATMs() {
-        return new ArrayList<>(atms.keySet());
-    }
-    
-    protected Map<Banknote, Integer> getDifference (ATM atm) {
-        Map<Banknote, Integer> dif = new HashMap<>();
-        updateConditionTemp(atm);
-        for (Banknote bn : conTemp.keySet()) {
-            dif.put(bn, conTemp.get(bn) - atms.get(atm).get(bn));
-        }
-        return dif;        
-    }
-    
-    public void recoverATM(ATM atm) {
-        for (Banknote bn : getDifference(atm).keySet()) {
-            int diffOfBanknote = getDifference(atm).get(bn);
-            if (diffOfBanknote > 0) {
-                for (int i = 0; i < diffOfBanknote; i++) {
+
+    public void recoverATM(ATM a) {
+        updateDifference(a);
+        for (Banknote bn : differences.get(a).keySet()) {
+            int difOfBanknote = differences.get(a).get(bn);
+            if (difOfBanknote > 0) {
+                for (int i = 0; i < difOfBanknote; i++) {
                     try {
-                        atm.getMoney(bn.getValue());
+                        a.getMoney(bn.getValue());
                     } catch (NotEnoughMoneyException ex) {
                         ex.printStackTrace();
                     }
                 }
             }
-            if (diffOfBanknote < 0) {
+            if (difOfBanknote < 0) {
                 try {
-                    atm.addMoney(bn, Math.abs(diffOfBanknote));
+                    a.addMoney(bn, Math.abs(difOfBanknote));
                 } catch (NonPositiveDepositException ex) {
                     ex.printStackTrace();
                 }
@@ -86,8 +76,8 @@ public class Department {
     }
     
     public void recoverAllATMs() {
-        for (ATM atm : getAllATMs()) {
-            recoverATM(atm);
+        for (ATM a : atms) {
+            recoverATM(a);
         }
     }
 }

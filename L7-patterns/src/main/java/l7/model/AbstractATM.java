@@ -8,26 +8,23 @@ import java.util.Map;
 
 import static l7.model.Banknote.*;
 
-public class AutomatedTellerMachine {
+public abstract class AbstractATM {
 
-    private final Map<Banknote, Integer> banknotes = new HashMap<>();
+    protected final Map<Banknote, Integer> banknotes = new HashMap<>();
     
-    public AutomatedTellerMachine() {
+    public AbstractATM() {
         banknotes.put(One, 0);
         banknotes.put(Five, 0);
         banknotes.put(Ten, 0);
         banknotes.put(Fifty, 0);
         banknotes.put(Hundred, 0);
     }
-    
-    public AutomatedTellerMachine(int hundreds, int fifties, int tens, int fives, int ones) {
-        banknotes.put(One, ones);
-        banknotes.put(Five, fives);
-        banknotes.put(Ten, tens);
-        banknotes.put(Fifty, fifties);
-        banknotes.put(Hundred, hundreds);
+
+    public AbstractATM setBanknote(Banknote bn, int amount) {
+        banknotes.put(bn, amount);
+        return this;
     }
-    
+
     protected int getBalance(){
         int balance = 0;
         for (Banknote bn : banknotes.keySet()) {
@@ -58,9 +55,5 @@ public class AutomatedTellerMachine {
             }
         }
         return out;
-    }
-    
-    protected Map<Banknote, Integer> getNumberOfBanknotes() {
-        return banknotes;
     }
 }
