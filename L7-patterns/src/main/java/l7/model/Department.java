@@ -9,7 +9,7 @@ public class Department {
 
     private ArrayList<ATM> atms = new ArrayList<>();
     private Map<ATM, Integer> balances = new HashMap<>();
-    private final Map<ATM, Map<Banknote, Integer>> differences = new HashMap<>();
+    private Map<ATM, Map<Banknote, Integer>> differences = new HashMap<>();
 
     void registerATM (ATM a) {
         atms.add(a);
