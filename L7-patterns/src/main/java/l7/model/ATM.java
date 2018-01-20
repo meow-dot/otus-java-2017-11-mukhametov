@@ -23,7 +23,7 @@ public class ATM extends AbstractATM {
         initialCondition = getInitialCondition();
     }
     
-    public void unRegisterDepartment(Department dep) {
+    public void unRegisterDepartment() {
         department.unRegisterATM(this);
         this.department = null;
     }
