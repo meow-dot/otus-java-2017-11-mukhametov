@@ -6,7 +6,7 @@ import java.util.Map;
 public class ATM extends AbstractATM {
 
     private Department department;
-    private Map<Banknote, Integer> initialCondition;
+    private Map<Banknote, Integer> initialCondition = new HashMap<>();
 
     public ATM(){
         super();
@@ -18,9 +18,12 @@ public class ATM extends AbstractATM {
     }
     
     public void registerDepartment(Department dep) {
+        initialCondition.clear();
         this.department = dep;
         department.registerATM(this);
-        initialCondition = getInitialCondition();
+        for (Banknote bn : getNumberOfBanknotes().keySet()) {
+            initialCondition.put(bn, getNumberOfBanknotes().get(bn));
+        }
     }
     
     public void unRegisterDepartment() {
@@ -42,14 +45,6 @@ public class ATM extends AbstractATM {
             dif.put(bn, getNumberOfBanknotes().get(bn) - initialCondition.get(bn));
         }
         return dif;
-    }
-
-    private Map<Banknote, Integer> getInitialCondition() {
-        Map<Banknote, Integer> initCondition = new HashMap<>();
-        for (Banknote bn : getNumberOfBanknotes().keySet()) {
-            initCondition.put(bn, getNumberOfBanknotes().get(bn));
-        }
-        return initCondition;
     }
 
     private Map<Banknote, Integer> getNumberOfBanknotes() {
