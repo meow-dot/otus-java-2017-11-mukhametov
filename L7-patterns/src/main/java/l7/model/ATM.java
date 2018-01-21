@@ -1,12 +1,6 @@
 package l7.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ATM extends AbstractATM {
-
-    private Department department;
-    private Map<Banknote, Integer> initialCondition = new HashMap<>();
 
     public ATM(){
         super();
@@ -16,38 +10,19 @@ public class ATM extends AbstractATM {
         banknotes.put(bn, amount);
         return this;
     }
-    
-    public void registerDepartment(Department dep) {
-        initialCondition.clear();
-        this.department = dep;
-        department.registerATM(this);
-        for (Banknote bn : getNumberOfBanknotes().keySet()) {
-            initialCondition.put(bn, getNumberOfBanknotes().get(bn));
+
+    Memento save() {
+        Memento memento = new Memento();
+        memento.setAtm(this);
+        for (Banknote bn : banknotes.keySet()) {
+            memento.getNumberOfBanknotes().put(bn, banknotes.get(bn));
         }
-    }
-    
-    public void unRegisterDepartment() {
-        department.unRegisterATM(this);
-        this.department = null;
+        return memento;
     }
 
-    void sendBalance() {
-        department.putBalance(this, getBalance());
-    }
-
-    void sendDifference() {
-        department.putDifference(this, getDifference());
-    }
-
-    private Map<Banknote, Integer> getDifference() {
-        Map<Banknote, Integer> dif = new HashMap<>();
-        for (Banknote bn : getNumberOfBanknotes().keySet()) {
-            dif.put(bn, getNumberOfBanknotes().get(bn) - initialCondition.get(bn));
+    void restore(Memento memento) {
+        for (Banknote bn : memento.getNumberOfBanknotes().keySet()) {
+            banknotes.put(bn, memento.getNumberOfBanknotes().get(bn));
         }
-        return dif;
-    }
-
-    private Map<Banknote, Integer> getNumberOfBanknotes() {
-        return banknotes;
     }
 }

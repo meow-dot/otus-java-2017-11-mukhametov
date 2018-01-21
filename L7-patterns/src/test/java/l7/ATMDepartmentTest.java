@@ -26,8 +26,8 @@ public class ATMDepartmentTest {
 
     @Before
     public void setUp() {
-        atm1.registerDepartment(department);
-        atm2.registerDepartment(department);
+        department.addATM(atm1);
+        department.addATM(atm2);
     }
 
     @Test

@@ -25,7 +25,7 @@ public abstract class AbstractATM {
         return this;
     }
 
-    protected int getBalance(){
+    int getBalance(){
         int balance = 0;
         for (Banknote bn : banknotes.keySet()) {
             balance += bn.getValue() * banknotes.get(bn);
