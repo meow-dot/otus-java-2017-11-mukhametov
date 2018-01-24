@@ -1,26 +1,26 @@
-package l8.handler;
+package handler.nodes;
 
 import java.util.HashSet;
 import java.util.Set;
 
-class PrimitiveNode extends AbstractNode {
-    
-    static final Set<Class> TYPES = getTypes();
+public class PrimitiveNode extends AbstractNode {
 
-    PrimitiveNode(Object object) {
+    public static final Set<Class> TYPES = getTypes();
+
+    public PrimitiveNode(Object object) {
         super(object);
-    }    
+    }
 
     @Override
-    String write() {
+    public String write() {
         if (object.getClass().equals(String.class)) {
             return "\"" + object.toString() + "\"";
         }
         return object.toString();
-    }    
-    
-    private static Set<Class> getTypes() {
-        Set<Class> cls = new HashSet<>();        
+    }
+
+    protected static Set<Class> getTypes() {
+        Set<Class> cls = new HashSet<>();
         cls.add(String.class);
         cls.add(Short.class);
         cls.add(Integer.class);
@@ -31,5 +31,5 @@ class PrimitiveNode extends AbstractNode {
         cls.add(Character.class);
         cls.add(Boolean.class);
         return cls;
-    }    
+    }
 }

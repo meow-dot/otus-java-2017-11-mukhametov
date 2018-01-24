@@ -1,7 +1,7 @@
-package l8;
+package handler;
 
 import com.google.gson.Gson;
-import l8.handler.JsonHandler;
+
 import java.util.*;
 
 public class JsonHandlerTest {
@@ -23,9 +23,5 @@ public class JsonHandlerTest {
 
         Student studentCopy = gson.fromJson(result1, Student.class);
         System.out.println(studentCopy);
-
     }
-
-
-
 }

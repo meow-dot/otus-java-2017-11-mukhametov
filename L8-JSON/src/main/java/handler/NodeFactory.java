@@ -1,18 +1,20 @@
-package l8.handler;
+package handler;
 
-class NodeFactory {
-    
-    private final Object object;
+import handler.nodes.*;
 
-    NodeFactory(Object object) {
+public class NodeFactory {
+
+    protected final Object object;
+
+    public NodeFactory(Object object) {
         this.object = object;
     }
-    
+
     public AbstractNode build() {
         if (object == null) {
             return new NullNode();
         }
-        Class klass = object.getClass();        
+        Class klass = object.getClass();
         if (klass.isArray()) {
             return new ArrayNode(object);
         }

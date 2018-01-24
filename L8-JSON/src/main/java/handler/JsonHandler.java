@@ -1,7 +1,9 @@
-package l8.handler;
+package handler;
+
+import handler.nodes.AbstractNode;
 
 public class JsonHandler {
-    
+
     public static String write(Object object) {
         AbstractNode node = (new NodeFactory(object)).build();
         return node.write();
