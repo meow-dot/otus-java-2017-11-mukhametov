@@ -23,6 +23,7 @@ public class CheckOverallBalance implements Command {
             try {
                 throw new CriticalAmountMoneyException();
             } catch (CriticalAmountMoneyException e) {
+                e.getMessage();
                 return false;
             }
         }
