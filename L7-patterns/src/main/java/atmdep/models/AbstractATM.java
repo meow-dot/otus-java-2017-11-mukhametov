@@ -1,17 +1,17 @@
-package l7.model;
+package atmdep.models;
 
-import l7.exceptions.NonPositiveDepositException;
-import l7.exceptions.NotEnoughMoneyException;
+import atmdep.exceptions.NonPositiveDepositException;
+import atmdep.exceptions.NotEnoughMoneyException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static l7.model.Banknote.*;
+import static atmdep.models.Banknote.*;
 
 public abstract class AbstractATM {
 
     protected final Map<Banknote, Integer> banknotes = new HashMap<>();
-    
+
     public AbstractATM() {
         banknotes.put(One, 0);
         banknotes.put(Five, 0);

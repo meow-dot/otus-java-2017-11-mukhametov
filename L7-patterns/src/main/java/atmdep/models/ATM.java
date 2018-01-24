@@ -1,6 +1,8 @@
-package l7.model;
+package atmdep.models;
 
 public class ATM extends AbstractATM {
+
+    protected String name;
 
     public ATM(){
         super();
@@ -24,5 +26,13 @@ public class ATM extends AbstractATM {
         for (Banknote bn : memento.getNumberOfBanknotes().keySet()) {
             banknotes.put(bn, memento.getNumberOfBanknotes().get(bn));
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    void setName(String name) {
+        this.name = name;
     }
 }

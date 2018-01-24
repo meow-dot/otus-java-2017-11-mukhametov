@@ -1,4 +1,4 @@
-package l7.model;
+package atmdep.models;
 
 public enum  Banknote {
     Hundred(100),

@@ -1,4 +1,4 @@
-package l7.model;
+package atmdep.models;
 
 import java.util.*;
 
@@ -7,8 +7,9 @@ public class Department {
     private ArrayList<ATM> atms = new ArrayList<>();
     private ArrayList<Memento> initials = new ArrayList<>();
 
-    public void addATM(ATM atm) {
+    public void addATM(ATM atm, String name) {
         atms.add(atm);
+        atm.setName(name);
         initials.add(atm.save());
     }
     

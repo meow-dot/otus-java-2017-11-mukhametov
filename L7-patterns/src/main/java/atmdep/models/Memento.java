@@ -1,4 +1,4 @@
-package l7.model;
+package atmdep.models;
 
 import java.util.HashMap;
 import java.util.Map;

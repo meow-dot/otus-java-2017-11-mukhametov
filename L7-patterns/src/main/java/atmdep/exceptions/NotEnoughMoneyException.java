@@ -1,4 +1,4 @@
-package l7.exceptions;
+package atmdep.exceptions;
 
 public class NotEnoughMoneyException extends Exception {
     @Override
