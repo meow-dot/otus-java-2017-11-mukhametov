@@ -1,6 +1,4 @@
-package handler;
-
-import handler.nodes.*;
+package handler.nodes;
 
 public class NodeFactory {
 
@@ -11,23 +9,22 @@ public class NodeFactory {
     }
 
     public AbstractNode build() {
-        if (object == null) {
-            return new NullNode();
+        if (NullNode.isSupported(object)) {
+            return new NullNode(object);
         }
-        Class klass = object.getClass();
-        if (klass.isArray()) {
+        if (ArrayNode.isSupported(object)) {
             return new ArrayNode(object);
         }
-        if (PrimitiveNode.TYPES.contains(klass)) {
+        if (PrimitiveNode.isSupported(object)) {
             return new PrimitiveNode(object);
         }
-        if (ListNode.TYPES.contains(klass)) {
+        if (ListNode.isSupported(object)) {
             return new ListNode(object);
         }
-        if (SetNode.TYPES.contains(klass)) {
+        if (SetNode.isSupported(object)) {
             return new SetNode(object);
         }
-        if (MapNode.TYPES.contains(klass)) {
+        if (MapNode.isSupported(object)) {
             return new MapNode(object);
         }
         return new ObjectNode(object);

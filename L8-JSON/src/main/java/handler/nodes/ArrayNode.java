@@ -4,9 +4,9 @@ import java.lang.reflect.Array;
 import handler.JsonHandler;
 import handler.recorder.RecordBuilder;
 
-public class ArrayNode extends AbstractNode {
+class ArrayNode extends AbstractNode {
 
-    public ArrayNode(Object object) {
+    ArrayNode(Object object) {
         super(object);
     }
 
@@ -19,5 +19,9 @@ public class ArrayNode extends AbstractNode {
             record.addElement(JsonHandler.write(element));
         }
         return record.build();
+    }
+
+    static boolean isSupported(Object object) {
+        return object.getClass().isArray();
     }
 }

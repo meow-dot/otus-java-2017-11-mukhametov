@@ -1,11 +1,15 @@
 package handler.nodes;
 
-public class NullNode extends AbstractNode {
+class NullNode extends AbstractNode {
 
-    public NullNode() {}
+    NullNode(Object object) {super(object);}
 
     @Override
     public String write() {
         return "null";
+    }
+
+    static boolean isSupported(Object object) {
+        return object == null;
     }
 }

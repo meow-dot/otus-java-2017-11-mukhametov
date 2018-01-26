@@ -3,11 +3,9 @@ package handler.nodes;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PrimitiveNode extends AbstractNode {
+class PrimitiveNode extends AbstractNode {
 
-    public static final Set<Class> TYPES = getTypes();
-
-    public PrimitiveNode(Object object) {
+    PrimitiveNode(Object object) {
         super(object);
     }
 
@@ -17,6 +15,10 @@ public class PrimitiveNode extends AbstractNode {
             return "\"" + object.toString() + "\"";
         }
         return object.toString();
+    }
+
+    static boolean isSupported(Object object) {
+        return getTypes().contains(object.getClass());
     }
 
     protected static Set<Class> getTypes() {

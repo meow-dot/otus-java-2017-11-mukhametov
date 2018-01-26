@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 
 import java.util.*;
 
-public class JsonHandlerTest {
+public class JsonHandlerDemo {
 
     public static void main(String[] args) {
 
@@ -23,5 +23,26 @@ public class JsonHandlerTest {
 
         Student studentCopy = gson.fromJson(result1, Student.class);
         System.out.println(studentCopy);
+    }
+
+    public static class Student {
+
+        private final int id;
+        private final Map<String, Integer> grades;
+        private final String[] hobbies;
+
+        public Student(int id, Map<String, Integer> grades, String[] hobbies) {
+            this.id = id;
+            this.grades = grades;
+            this.hobbies = hobbies;
+        }
+
+        @Override
+        public String toString() {
+            return "\n" +
+                    "id: " + id + ";\n" +
+                    "grades: " + grades + ";\n" +
+                    "hobbies: " + Arrays.toString(hobbies);
+        }
     }
 }

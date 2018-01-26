@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 import handler.JsonHandler;
 import handler.recorder.RecordBuilder;
 
-public class ObjectNode extends AbstractNode {
+class ObjectNode extends AbstractNode {
 
-    public ObjectNode(Object object) {
+    ObjectNode(Object object) {
         super(object);
     }
 
@@ -23,5 +23,9 @@ public class ObjectNode extends AbstractNode {
             }
         }
         return record.build();
+    }
+
+    static boolean isSupported(Object object) {
+        return true;
     }
 }

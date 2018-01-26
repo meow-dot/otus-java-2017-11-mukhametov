@@ -4,9 +4,7 @@ public abstract class AbstractNode {
 
     protected Object object;
 
-    public AbstractNode() {}
-
-    public AbstractNode(Object object) {
+    AbstractNode(Object object) {
         this.object = object;
     }
 

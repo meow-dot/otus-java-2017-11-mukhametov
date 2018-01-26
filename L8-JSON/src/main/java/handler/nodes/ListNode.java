@@ -4,11 +4,9 @@ import java.util.*;
 import handler.JsonHandler;
 import handler.recorder.RecordBuilder;
 
-public class ListNode extends AbstractNode {
+class ListNode extends AbstractNode {
 
-    public static final Set<Class> TYPES = getTypes();
-
-    public ListNode(Object object) {
+    ListNode(Object object) {
         super(object);
     }
 
@@ -20,6 +18,10 @@ public class ListNode extends AbstractNode {
             record.addElement(JsonHandler.write(o));
         }
         return record.build();
+    }
+
+    static boolean isSupported(Object object) {
+        return getTypes().contains(object.getClass());
     }
 
     protected static Set<Class> getTypes() {
