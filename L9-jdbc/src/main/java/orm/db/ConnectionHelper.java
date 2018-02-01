@@ -16,7 +16,8 @@ class ConnectionHelper {
                     "db?" +
                     "user=root&" +
                     "password=root&" +
-                    "useSSL=false";
+                    "useSSL=false&" +
+                    "serverTimezone=UTC";
 
             return DriverManager.getConnection(url);
         } catch (SQLException e) {
