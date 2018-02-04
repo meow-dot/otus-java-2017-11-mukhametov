@@ -1,32 +1,22 @@
 package atmdep.commands;
 
-import atmdep.exceptions.CriticalAmountMoneyException;
 import atmdep.models.Department;
 
 public class CheckOverallBalance implements Command {
-    
-    protected Department department;
-    protected int min;
-    protected int max;
 
-    public CheckOverallBalance(Department department, int min, int max) {
+    private static int MIN_OVERALL_BALANCE = 500;
+    private static int MAX_OVERALL_BALANCE = 10000;
+    
+    private Department department;
+
+    public CheckOverallBalance(Department department) {
         this.department = department;
-        this.min = min;
-        this.max = max;
     }    
 
     @Override
     public boolean execute() {
         int sum = department.getOverallBalance();
         System.out.println("Overall balance : " + sum);
-        if (sum > max || sum < min) {
-            try {
-                throw new CriticalAmountMoneyException();
-            } catch (CriticalAmountMoneyException e) {
-                e.getMessage();
-                return false;
-            }
-        }
-        return true;
+        return (sum >= MIN_OVERALL_BALANCE || sum <= MAX_OVERALL_BALANCE);
     }
 }

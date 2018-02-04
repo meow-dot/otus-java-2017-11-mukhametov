@@ -30,7 +30,7 @@ public class ATMDepartmentDemo {
             Command in = new Deposit(atm1, Hundred, (int) (Math.random() * 5));
             Command out = new Withdrawal(atm2, (int) (Math.random() * 1000));
             Command recover = new RecoverAll(dep);
-            Command check = new CheckOverallBalance(dep, 500, 5000);
+            Command check = new CheckOverallBalance(dep);
 
             if (!out.execute()) {
                 recover.execute();
@@ -41,6 +41,7 @@ public class ATMDepartmentDemo {
             if (!check.execute()) {
                 recover.execute();
             }
+
             Thread.sleep(3000);
         }
     }

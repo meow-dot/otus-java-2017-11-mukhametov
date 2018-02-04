@@ -4,9 +4,9 @@ import atmdep.exceptions.NotEnoughMoneyException;
 import atmdep.models.ATM;
 
 public class Withdrawal implements Command {
-    
-    protected ATM atm;
-    protected int amount;
+
+    private ATM atm;
+    private int amount;
 
     public Withdrawal (ATM atm, int amount) {
         this.atm = atm;

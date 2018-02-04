@@ -4,7 +4,7 @@ import atmdep.models.Department;
 
 public class RecoverAll implements Command {
 
-    protected Department department;
+    private Department department;
 
     public RecoverAll (Department department) {
         this.department = department;

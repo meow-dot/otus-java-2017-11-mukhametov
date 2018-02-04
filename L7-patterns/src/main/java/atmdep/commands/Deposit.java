@@ -5,10 +5,10 @@ import atmdep.models.ATM;
 import atmdep.models.Banknote;
 
 public class Deposit implements Command {
-    
-    protected ATM atm;
-    protected Banknote banknote;
-    protected int amount;
+
+    private ATM atm;
+    private Banknote banknote;
+    private int amount;
 
     public Deposit (ATM atm, Banknote banknote, int amount) {
         this.atm = atm;
