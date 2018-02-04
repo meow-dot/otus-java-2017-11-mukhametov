@@ -1,6 +1,5 @@
 package orm.executor;
 
-import orm.db.Data;
 import orm.models.DataSet;
 import orm.db.DBService;
 
@@ -8,7 +7,7 @@ import java.lang.reflect.Field;
 
 public class Executor {
 
-    protected final DBService dbService;
+    private final DBService dbService;
     public Executor(DBService dbService) {
         this.dbService = dbService;
     }
@@ -20,19 +19,25 @@ public class Executor {
             field.setAccessible(true);
             if (field.getName().equals("name")) {
                 name = (String) field.get(user);
-                System.out.println(name);
             }
             if (field.getName().equals("age")) {
                 age = (int) field.get(user);
-                System.out.println(age);
             }
         }
-        dbService.addData(name, age);
+        dbService.addUser(name, age);
     }
 
     public <T extends DataSet> T load(long id, Class<T> clazz) throws Exception  {
-        Data data = dbService.getData(id);
-        return clazz.getConstructor(Long.class, String.class, Integer.class)
-                .newInstance(data.getId(), data.getName(), data.getAge());
+        T user = clazz.getConstructor().newInstance();
+        for (Field field : clazz.getDeclaredFields()) {
+            field.setAccessible(true);
+            if (field.getName().equals("name")) {
+                field.set(user, dbService.getUserName(id));
+            }
+            if (field.getName().equals("age")) {
+                field.set(user, dbService.getUserAge(id));
+            }
+        }
+        return user;
     }
 }
