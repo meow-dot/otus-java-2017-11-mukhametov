@@ -11,9 +11,8 @@ public class RecoverAll implements Command {
     }
 
     @Override
-    public boolean execute() {
+    public void execute() {
         department.recoverAllATMs();
-        System.out.println("ATMs are recovering...");
-        return true;
+        System.out.println("ATMs recovered");
     }
 }

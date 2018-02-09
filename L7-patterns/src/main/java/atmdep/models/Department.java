@@ -1,5 +1,7 @@
 package atmdep.models;
 
+import atmdep.commands.Command;
+
 import java.util.*;
 
 public class Department {
@@ -44,5 +46,9 @@ public class Department {
         for (ATM a : atms) {
             recoverATM(a);
         }
+    }
+
+    public void execute(Command command) {
+        command.execute();
     }
 }

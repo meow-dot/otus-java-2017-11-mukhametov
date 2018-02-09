@@ -14,14 +14,12 @@ public class Withdrawal implements Command {
     }
         
     @Override
-    public boolean execute() {
+    public void execute() {
         try {
             atm.getMoney(amount);
             System.out.println(atm.getName() + " withdrawal " + amount);
         } catch (NotEnoughMoneyException e) {
             e.getMessage();
-            return false;
         }
-        return true;
     }
 }

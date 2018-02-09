@@ -17,14 +17,12 @@ public class Deposit implements Command {
     }
         
     @Override
-    public boolean execute() {
+    public void execute() {
         try {
             atm.addMoney(banknote, amount);
             System.out.println(atm.getName() + " deposit " + amount*banknote.getValue());
         } catch (NonPositiveDepositException e) {
             e.getMessage();
-            return false;
         }
-        return true;
     }
 }
