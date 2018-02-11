@@ -5,6 +5,20 @@ public class UserDataSet extends DataSet {
     private String name;
     private int age;
 
+    public UserDataSet(){}
+
+    public UserDataSet(String name, int age) {
+        super(-1);
+        this.name = name;
+        this.age = age;
+    }
+
+    public UserDataSet(long id, String name, int age) {
+        super(id);
+        this.name = name;
+        this.age = age;
+    }
+
     public String getName() {
         return name;
     }
@@ -21,7 +35,12 @@ public class UserDataSet extends DataSet {
         this.age = age;
     }
 
+    @Override
     public String toString() {
-        return "{'id':" + id + ",'name':" + name + ",'age':" + age + "}";
+        return "UserDataSet{" +
+                "name='" + getName() + '\'' +
+                ", age=" + getAge() +
+                ", id=" + getId() +
+                '}';
     }
 }

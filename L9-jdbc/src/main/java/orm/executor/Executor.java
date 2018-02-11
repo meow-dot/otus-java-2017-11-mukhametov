@@ -1,43 +1,40 @@
 package orm.executor;
 
-import orm.models.DataSet;
-import orm.db.DBService;
-
-import java.lang.reflect.Field;
+import java.sql.*;
 
 public class Executor {
 
-    private final DBService dbService;
-    public Executor(DBService dbService) {
-        this.dbService = dbService;
+    private final Connection connection;
+
+    public Executor(Connection connection) {
+        this.connection = connection;
     }
 
-    public <T extends DataSet> void save(T user) throws IllegalAccessException{
-        String name = null;
-        int age = 0;
-        for (Field field : user.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            if (field.getName().equals("name")) {
-                name = (String) field.get(user);
-            }
-            if (field.getName().equals("age")) {
-                age = (int) field.get(user);
-            }
-        }
-        dbService.addUser(name, age);
+    public void execUpdate(String update, ExecuteHandler execute) throws SQLException {
+        PreparedStatement statement = getConnection().prepareStatement(update);
+        execute.accept(statement);
+        statement.execute();
+        statement.close();
     }
 
-    public <T extends DataSet> T load(long id, Class<T> clazz) throws Exception  {
-        T user = clazz.getConstructor().newInstance();
-        for (Field field : clazz.getDeclaredFields()) {
-            field.setAccessible(true);
-            if (field.getName().equals("name")) {
-                field.set(user, dbService.getUserName(id));
-            }
-            if (field.getName().equals("age")) {
-                field.set(user, dbService.getUserAge(id));
-            }
-        }
-        return user;
+    public void execQuery(String query, ExecuteHandler execute, ResultHandler result) throws SQLException{
+        PreparedStatement statement = getConnection().prepareStatement(query);
+        execute.accept(statement);
+        statement.execute();
+        ResultSet resultSet = statement.getResultSet();
+        resultSet.next();
+        result.handle(resultSet);
+        resultSet.close();
+        statement.close();
+    }
+
+    public void execSimpleQuery(String query) throws SQLException {
+        Statement statement = getConnection().createStatement();
+        statement.execute(query);
+        statement.close();
+    }
+
+    private Connection getConnection() {
+        return connection;
     }
 }
