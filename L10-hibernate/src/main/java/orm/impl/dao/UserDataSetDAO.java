@@ -1,10 +1,9 @@
-package orm09.impl.dao;
+package orm.impl.dao;
 
-import orm09.executor.Executor;
-import orm09.models.UserDataSet;
+import orm.executor.Executor;
+import orm.models.UserDataSet;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class UserDataSetDAO {
 

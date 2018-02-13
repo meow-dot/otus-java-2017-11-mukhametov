@@ -1,8 +1,8 @@
-package orm09;
+package orm;
 
-import orm09.impl.DBServiceImpl;
-import orm09.models.UserDataSet;
-import orm09.db.DBService;
+import orm.impl.DBServiceImpl;
+import orm.models.UserDataSet;
+import orm.db.DBService;
 
 public class ORMDemo {
     public static void main(String[] args) {

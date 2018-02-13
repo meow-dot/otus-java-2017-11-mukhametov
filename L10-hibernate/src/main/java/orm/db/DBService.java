@@ -1,6 +1,6 @@
-package orm09.db;
+package orm.db;
 
-import orm09.models.UserDataSet;
+import orm.models.UserDataSet;
 
 public interface DBService {
 

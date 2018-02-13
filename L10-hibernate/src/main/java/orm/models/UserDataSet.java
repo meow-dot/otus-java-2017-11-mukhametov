@@ -1,4 +1,4 @@
-package orm09.models;
+package orm.models;
 
 public class UserDataSet extends DataSet {
 

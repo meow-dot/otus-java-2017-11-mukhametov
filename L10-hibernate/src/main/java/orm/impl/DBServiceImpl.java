@@ -1,8 +1,8 @@
-package orm09.impl;
+package orm.impl;
 
-import orm09.db.DBService;
-import orm09.impl.dao.UserDataSetDAO;
-import orm09.models.UserDataSet;
+import orm.db.DBService;
+import orm.impl.dao.UserDataSetDAO;
+import orm.models.UserDataSet;
 
 import java.sql.Connection;
 import java.sql.SQLException;

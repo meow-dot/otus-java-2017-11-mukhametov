@@ -1,4 +1,4 @@
-package orm09.impl;
+package orm.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
