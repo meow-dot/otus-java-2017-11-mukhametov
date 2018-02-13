@@ -1,15 +1,20 @@
-package orm09.db;
+package orm09.models;
 
 public class UserDataSet extends DataSet {
 
     private String name;
-
     private int age;
 
-    public UserDataSet() {}
+    public UserDataSet(){}
 
     public UserDataSet(String name, int age) {
-        this.setId(-1);
+        super(-1);
+        this.name = name;
+        this.age = age;
+    }
+
+    public UserDataSet(long id, String name, int age) {
+        super(id);
         this.name = name;
         this.age = age;
     }
@@ -30,11 +35,12 @@ public class UserDataSet extends DataSet {
         this.age = age;
     }
 
+    @Override
     public String toString() {
-        return "{" +
-                "'id':" + getId() +
-                ",'name':" + getName() +
-                ",'age':" + getAge() +
-                "}";
+        return "UserDataSet{" +
+                "name='" + getName() + '\'' +
+                ", age=" + getAge() +
+                ", id=" + getId() +
+                '}';
     }
 }
