@@ -5,7 +5,6 @@ import orm.models.DataSet;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DBService implements AutoCloseable{
