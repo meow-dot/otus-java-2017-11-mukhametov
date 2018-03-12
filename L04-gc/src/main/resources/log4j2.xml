@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%msg%n" />
+        </Console>
+        <!--<File name="MyFile" fileName="L04-gc/logs/SerialGC.log" immediateFlush="true" append="false">-->
+        <!--<File name="MyFile" fileName="L04-gc/logs/ParallelGC.log" immediateFlush="true" append="false">-->
+        <!--<File name="MyFile" fileName="L04-gc/logs/ConcMarkSweepGC.log" immediateFlush="true" append="false">-->
+        <File name="MyFile" fileName="L04-gc/logs/G1GC.log" immediateFlush="true" append="false">
+            <PatternLayout pattern="%msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="MyFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
