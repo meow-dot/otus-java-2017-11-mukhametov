@@ -1,5 +1,7 @@
 package hibernate.impl;
 
+import hibernate.models.AddressDataSet;
+import hibernate.models.PhoneDataSet;
 import hibernate.models.UserDataSet;
 import org.hibernate.cfg.Configuration;
 
@@ -12,20 +14,11 @@ class ConfigurationHelper {
 
     static Configuration getConfiguration() {
         Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(UserDataSet.class);
-        configuration.addProperties(getProperties());
+        configuration.configure();
+        configuration
+                .addAnnotatedClass(UserDataSet.class)
+                .addAnnotatedClass(AddressDataSet.class)
+                .addAnnotatedClass(PhoneDataSet.class);
         return configuration;
-    }
-
-    static Properties getProperties() {
-        Properties properties = new Properties();
-        try {
-            InputStream input = new FileInputStream("L10-hibernate/src/main/resources/config.properties");
-            properties.load(input);
-            input.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return properties;
     }
 }

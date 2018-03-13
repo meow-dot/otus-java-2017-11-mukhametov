@@ -1,6 +1,10 @@
 package hibernate.impl;
 
+import hibernate.impl.dao.AddressDataSetDAO;
+import hibernate.impl.dao.PhoneDataSetDAO;
 import hibernate.impl.dao.UserDataSetDAO;
+import hibernate.models.AddressDataSet;
+import hibernate.models.PhoneDataSet;
 import hibernate.models.UserDataSet;
 import hibernate.db.DBService;
 
@@ -22,7 +26,7 @@ public class DBServiceHibernateImpl implements DBService {
     }
 
     @Override
-    public void save(UserDataSet user) {
+    public void saveUser(UserDataSet user) {
         try (Session session = sessionFactory.openSession()){
             UserDataSetDAO dao = new UserDataSetDAO(session);
             dao.save(user);
@@ -30,9 +34,41 @@ public class DBServiceHibernateImpl implements DBService {
     }
 
     @Override
-    public UserDataSet read(long id) {
+    public UserDataSet readUser(long id) {
         return runInSession(session -> {
             UserDataSetDAO dao = new UserDataSetDAO(session);
+            return dao.read(id);
+        });
+    }
+
+    @Override
+    public void saveAddress(AddressDataSet address) {
+        try (Session session = sessionFactory.openSession()){
+            AddressDataSetDAO dao = new AddressDataSetDAO(session);
+            dao.save(address);
+        }
+    }
+
+    @Override
+    public AddressDataSet readAddress(long id) {
+        return runInSession(session -> {
+            AddressDataSetDAO dao = new AddressDataSetDAO(session);
+            return dao.read(id);
+        });
+    }
+
+    @Override
+    public void savePhone(PhoneDataSet phone) {
+        try (Session session = sessionFactory.openSession()){
+            PhoneDataSetDAO dao = new PhoneDataSetDAO(session);
+            dao.save(phone);
+        }
+    }
+
+    @Override
+    public PhoneDataSet readPhone(long id) {
+        return runInSession(session -> {
+            PhoneDataSetDAO dao = new PhoneDataSetDAO(session);
             return dao.read(id);
         });
     }
