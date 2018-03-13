@@ -8,20 +8,12 @@ class ConnectionHelper {
 
     static Connection getConnection() {
         try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-
-            String url = "jdbc:mysql://" +
-                    "localhost:" +
-                    "3306/" +
-                    "db?" +
-                    "user=root&" +
-                    "password=root&" +
-                    "useSSL=false&" +
-                    "serverTimezone=UTC";
-
-            return DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            Class.forName("org.h2.Driver");
+            return DriverManager
+                    .getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }

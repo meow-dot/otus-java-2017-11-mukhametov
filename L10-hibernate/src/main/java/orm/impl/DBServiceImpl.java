@@ -1,5 +1,6 @@
 package orm.impl;
 
+import org.h2.tools.Server;
 import orm.db.DBService;
 import orm.impl.dao.UserDataSetDAO;
 import orm.models.UserDataSet;
@@ -9,9 +10,15 @@ import java.sql.SQLException;
 
 public class DBServiceImpl implements DBService {
 
+    private Server server;
     private Connection connection;
 
     public DBServiceImpl() {
+        try {
+            server = Server.createTcpServer().start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         connection = ConnectionHelper.getConnection();
     }
 
@@ -41,6 +48,7 @@ public class DBServiceImpl implements DBService {
 
     @Override
     public void close() {
+        server.stop();
         try {
             connection.close();
         } catch (SQLException e) {
