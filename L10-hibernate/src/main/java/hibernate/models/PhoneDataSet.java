@@ -41,6 +41,7 @@ public class PhoneDataSet extends DataSet {
 
     public void setUser(UserDataSet user) {
         this.user = user;
+        user.addPhone(this);
     }
 
     @Override

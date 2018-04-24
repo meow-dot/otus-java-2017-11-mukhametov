@@ -16,6 +16,10 @@ public class UserDataSetDAO {
         return session.load(UserDataSet.class, id);
     }
     public void save(UserDataSet user) {
-        session.save(user);
+        if (user.getId() < 0) {
+            session.save(user);
+        } else {
+            session.update(user);
+        }
     }
 }

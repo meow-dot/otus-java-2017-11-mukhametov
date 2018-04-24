@@ -4,7 +4,7 @@ import hibernate.models.AddressDataSet;
 import hibernate.models.PhoneDataSet;
 import hibernate.models.UserDataSet;
 
-public interface DBService {
+public interface DBService extends AutoCloseable{
 
     UserDataSet readUser(long id);
     void saveUser(UserDataSet user);

@@ -8,6 +8,7 @@ import hibernate.models.PhoneDataSet;
 import hibernate.models.UserDataSet;
 import hibernate.db.DBService;
 
+import org.h2.tools.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,21 +16,30 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import java.sql.SQLException;
 import java.util.function.Function;
 
 public class DBServiceHibernateImpl implements DBService {
 
+    private Server server;
     private SessionFactory sessionFactory;
 
     public DBServiceHibernateImpl() {
+        try {
+            server = Server.createTcpServer().start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         sessionFactory = createSessionFactory(ConfigurationHelper.getConfiguration());
     }
 
     @Override
     public void saveUser(UserDataSet user) {
         try (Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             UserDataSetDAO dao = new UserDataSetDAO(session);
             dao.save(user);
+            session.getTransaction().commit();
         }
     }
 
@@ -44,8 +54,10 @@ public class DBServiceHibernateImpl implements DBService {
     @Override
     public void saveAddress(AddressDataSet address) {
         try (Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             AddressDataSetDAO dao = new AddressDataSetDAO(session);
             dao.save(address);
+            session.getTransaction().commit();
         }
     }
 
@@ -60,8 +72,10 @@ public class DBServiceHibernateImpl implements DBService {
     @Override
     public void savePhone(PhoneDataSet phone) {
         try (Session session = sessionFactory.openSession()){
+            session.beginTransaction();
             PhoneDataSetDAO dao = new PhoneDataSetDAO(session);
             dao.save(phone);
+            session.getTransaction().commit();
         }
     }
 
@@ -77,6 +91,7 @@ public class DBServiceHibernateImpl implements DBService {
     public void close() {
         sessionFactory.close();
         System.out.println("Session is closed.");
+        server.stop();
     }
 
     private SessionFactory createSessionFactory(Configuration configuration) {

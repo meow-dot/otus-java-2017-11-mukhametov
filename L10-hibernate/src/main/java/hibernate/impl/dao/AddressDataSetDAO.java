@@ -15,7 +15,11 @@ public class AddressDataSetDAO {
     public AddressDataSet read(long id) {
         return session.load(AddressDataSet.class, id);
     }
-    public void save(AddressDataSet phone) {
-        session.save(phone);
+    public void save(AddressDataSet address) {
+        if (address.getId() < 0) {
+            session.save(address);
+        } else {
+            session.update(address);
+        }
     }
 }

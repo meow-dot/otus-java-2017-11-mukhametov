@@ -2,7 +2,7 @@ package orm.db;
 
 import orm.models.UserDataSet;
 
-public interface DBService {
+public interface DBService extends AutoCloseable {
 
     UserDataSet read(long id);
     void save(UserDataSet user);

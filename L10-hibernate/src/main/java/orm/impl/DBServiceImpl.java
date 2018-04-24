@@ -48,12 +48,12 @@ public class DBServiceImpl implements DBService {
 
     @Override
     public void close() {
-        server.stop();
         try {
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        server.stop();
         System.out.println("Connection is closed.");
     }
 }

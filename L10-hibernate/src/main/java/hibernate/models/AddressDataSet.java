@@ -41,6 +41,7 @@ public class AddressDataSet extends DataSet{
 
     public void setUser(UserDataSet user) {
         this.user = user;
+        user.setAddress(this);
     }
 
     @Override

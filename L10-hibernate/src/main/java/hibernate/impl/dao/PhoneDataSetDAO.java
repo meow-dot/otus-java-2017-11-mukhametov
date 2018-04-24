@@ -16,6 +16,10 @@ public class PhoneDataSetDAO {
         return session.load(PhoneDataSet.class, id);
     }
     public void save(PhoneDataSet phone) {
-        session.save(phone);
+        if (phone.getId() < 0) {
+            session.save(phone);
+        } else {
+            session.update(phone);
+        }
     }
 }
