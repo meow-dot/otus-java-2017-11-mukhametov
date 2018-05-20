@@ -47,16 +47,19 @@ public class DBServiceCacheImpl implements DBService{
 
     @Override
     public UserDataSet readUser(long id) {
+        UserDataSet user;
         if (cacheEngine.get(id) != null) {
             System.out.println("From cache");
-            return cacheEngine.get(id).getValue();
+            user = cacheEngine.get(id).getValue();
         } else {
             System.out.println("Not from cache");
-            return runInSession(session -> {
+            user = runInSession(session -> {
                 UserDataSetDAO dao = new UserDataSetDAO(session);
                 return dao.read(id);
             });
+            cacheEngine.put(new Element<>(id, user));
         }
+        return user;
     }
 
     @Override

@@ -42,8 +42,14 @@ public class CacheEngineImpl<K,V> implements CacheEngine<K,V>{
     public Element<K,V> get(K key) {
         Element<K,V> element = elements.get(key);
         if (element != null) {
-            hit++;
-            element.setAccessed();
+            if (element.getValue() != null) {
+                hit++;
+                element.setAccessed();
+            } else {
+                elements.remove(key);
+                element = null;
+                miss++;
+            }
         } else {
             miss++;
         }
