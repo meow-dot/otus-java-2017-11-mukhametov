@@ -34,9 +34,7 @@ public class Main {
         try {
             looper.run();
         } catch (OutOfMemoryError err) {
-            LOG.error("Caught OutOfMemoryError");
-        } finally {
-            logger.printFinalInfo();
+            logger.stopMonitoring();
         }
     }
 }

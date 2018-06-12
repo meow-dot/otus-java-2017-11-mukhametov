@@ -18,7 +18,6 @@ public class GCLogger {
     private final Logger LOG = LogManager.getFormatterLogger(GCLogger.class);
 
     private GCListener listener;
-
     private Date timeStart;
 
     public void startMonitoring() {
@@ -31,13 +30,10 @@ public class GCLogger {
         }
     }
 
-    public void printFinalInfo() {
-        LOG.info("Report:\n" +
-                        "YOUNG: %d\n" +
-                        "OLD: %d\n" +
-                        "total duration: %dms\n" +
-                        "total application live time: %ds",
-                listener.getYoungCount(), listener.getOldCount(), listener.getTotalDuration(),
+    public void stopMonitoring() {
+        listener.logLastMinute();
+        LOG.error("Caught OutOfMemoryError");
+        LOG.info("Total application live time: %ds",
                 (new Date().getTime()-timeStart.getTime())/1000);
     }
 }

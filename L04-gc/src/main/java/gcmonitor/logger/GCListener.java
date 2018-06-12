@@ -11,16 +11,46 @@ import javax.management.openmbean.CompositeData;
 
 public class GCListener implements NotificationListener {
 
-    private final Logger LOG = LogManager.getFormatterLogger(GCListener.class);
+    private final static String ROW_FORMAT = "| %-6s | %-5s | %-3s | %-12s |";
+    private final static String SEPARATOR = "———————————————————————————————————————";
 
-    private static int youngCount = 0;
-    private static int oldCount = 0;
-    private static long totalDuration = 0L;
+    private final Logger LOG = LogManager.getFormatterLogger(GCListener.class);
+    private Thread thread;
+
+    private int minute = 0;
+    private int youngCount = 0;
+    private int oldCount = 0;
+    private long totalDuration = 0L;
 
     public GCListener() {
-        LOG.info("———————————————————————————————————————————————");
-        LOG.info("| %-11s| %-20s| %-9s|","Generation", "GC name", "Duration");
-        LOG.info("———————————————————————————————————————————————");
+        LOG.info(SEPARATOR);
+        LOG.info(ROW_FORMAT, "Minute", "Young", "Old", "Duration, ms");
+        LOG.info(SEPARATOR);
+        thread = new Thread(this::runTimer);
+        thread.start();
+    }
+
+    private void runTimer() {
+        while (!thread.isInterrupted()) {
+            try {
+                Thread.sleep(1000 * 60);
+            } catch (InterruptedException e) {
+                break;
+            }
+            minute++;
+            LOG.info(ROW_FORMAT, minute, youngCount, oldCount, totalDuration);
+            LOG.info(SEPARATOR);
+            youngCount = 0;
+            oldCount = 0;
+            totalDuration = 0L;
+        }
+    }
+
+    public void logLastMinute() {
+        thread.interrupt();
+        minute ++;
+        LOG.info(ROW_FORMAT, minute, youngCount, oldCount, totalDuration);
+        LOG.info(SEPARATOR);
     }
 
     @Override
@@ -30,18 +60,14 @@ public class GCListener implements NotificationListener {
             GarbageCollectionNotificationInfo notificationInfo =
                     GarbageCollectionNotificationInfo.from((CompositeData) notification.getUserData());
 
-            String generation = null;
-            String gcName = notificationInfo.getGcName();
             long duration = notificationInfo.getGcInfo().getDuration();
 
             switch (notificationInfo.getGcAction()) {
                 case "end of major GC":
-                    generation = "OLD";
                     oldCount ++;
                     break;
 
                 case "end of minor GC":
-                    generation = "YOUNG";
                     youngCount ++;
                     break;
 
@@ -50,21 +76,6 @@ public class GCListener implements NotificationListener {
             }
 
             totalDuration += duration;
-
-            LOG.info("| %-11s| %-20s| %-9d|",generation, gcName, duration);
-            LOG.info("———————————————————————————————————————————————");
         }
-    }
-
-    public int getYoungCount() {
-        return youngCount;
-    }
-
-    public int getOldCount() {
-        return oldCount;
-    }
-
-    public long getTotalDuration() {
-        return totalDuration;
     }
 }

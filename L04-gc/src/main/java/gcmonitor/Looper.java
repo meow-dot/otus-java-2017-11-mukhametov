@@ -11,7 +11,7 @@ public class Looper {
         List<String> list = new ArrayList<>();
 
         while (true) {
-            for (int i = 0; i < 20_000; i++) {
+            for (int i = 0; i < 15_000; i++) {
                 list.add(String.valueOf(i));
             }
 
