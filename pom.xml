@@ -9,7 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>L11-cache</module>
         <module>L12-jetty</module>
+        <module>L13-war</module>
         <module>L14-threads</module>
     </modules>
 
