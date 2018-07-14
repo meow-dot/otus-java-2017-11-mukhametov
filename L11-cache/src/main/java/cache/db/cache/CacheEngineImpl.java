@@ -62,6 +62,17 @@ public class CacheEngineImpl<K,V> implements CacheEngine<K,V>{
     }
 
     @Override
+    public long size() {
+        long sum = 0;
+        for (K key : elements.keySet()) {
+            if (get(key) != null) {
+                sum += 1;
+            }
+        }
+        return sum;
+    }
+
+    @Override
     public int getHitCount() {
         return hit;
     }

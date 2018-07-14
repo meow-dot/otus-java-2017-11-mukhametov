@@ -8,6 +8,8 @@ public interface CacheEngine<K, V> {
 
     void remove(K key);
 
+    long size();
+
     int getHitCount();
 
     int getMissCount();

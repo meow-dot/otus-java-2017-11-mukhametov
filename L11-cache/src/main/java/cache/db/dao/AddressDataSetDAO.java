@@ -16,11 +16,7 @@ public class AddressDataSetDAO {
     }
 
     public long save(AddressDataSet address) {
-        if (address.getId() == -1) {
-            return (long) session.save(address);
-        } else {
-            session.update(address);
-            return address.getId();
-        }
+        session.saveOrUpdate(address);
+        return address.getId();
     }
 }

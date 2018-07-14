@@ -12,4 +12,8 @@ public interface DBService extends AutoCloseable{
     PhoneDataSet readPhone(long id);
     long save(PhoneDataSet phone);
     void close();
+
+    long cacheSize();
+    int cacheHits();
+    int cacheMisses();
 }

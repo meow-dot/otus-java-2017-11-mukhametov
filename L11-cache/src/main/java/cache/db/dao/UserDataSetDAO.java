@@ -16,11 +16,7 @@ public class UserDataSetDAO {
     }
 
     public long save(UserDataSet user) {
-        if (user.getId() == -1) {
-            return (long) session.save(user);
-        } else {
-            session.update(user);
-            return user.getId();
-        }
+        session.saveOrUpdate(user);
+        return user.getId();
     }
 }

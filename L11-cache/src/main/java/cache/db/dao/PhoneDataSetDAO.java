@@ -16,11 +16,7 @@ public class PhoneDataSetDAO {
     }
 
     public long save(PhoneDataSet phone) {
-        if (phone.getId() == -1) {
-            return (long) session.save(phone);
-        } else {
-            session.update(phone);
-            return phone.getId();
-        }
+        session.saveOrUpdate(phone);
+        return phone.getId();
     }
 }
