@@ -15,8 +15,5 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="enable_lazy_load_no_trans">true</property>
-        <!--<property name="mapping class">UserDataSet</property>-->
-        <!--<property name="mapping class">AddressDataSet</property>-->
-        <!--<property name="mapping class">PhoneDataSet</property>-->
     </session-factory>
 </hibernate-configuration>
