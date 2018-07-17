@@ -1,5 +1,3 @@
-package war_ioc;
-
 import org.h2.tools.Server;
 
 import java.sql.SQLException;
@@ -12,5 +10,9 @@ public class H2TcpServer {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        H2TcpServer server = new H2TcpServer();
     }
 }
