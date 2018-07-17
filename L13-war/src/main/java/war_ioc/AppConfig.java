@@ -14,11 +14,6 @@ import war_ioc.db.DBServiceCacheImpl;
 public class AppConfig {
 
     @Bean
-    H2TcpServer getH2TcpServer() {
-        return new H2TcpServer();
-    }
-
-    @Bean
     DBService getDbService() {
         return new DBServiceCacheImpl();
     }

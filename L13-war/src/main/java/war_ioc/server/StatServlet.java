@@ -3,6 +3,7 @@ package war_ioc.server;
 import org.eclipse.jetty.http.HttpStatus;
 import war_ioc.db.DBService;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,13 +11,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@WebServlet("/stat")
 public class StatServlet extends HttpServlet {
 
-    private final DBService dbService;
-
-    public StatServlet(DBService dbService) {
-        this.dbService = dbService;
-    }
+    private DBService dbService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

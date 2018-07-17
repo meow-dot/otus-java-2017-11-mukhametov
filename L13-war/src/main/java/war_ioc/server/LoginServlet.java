@@ -3,19 +3,17 @@ package war_ioc.server;
 import war_ioc.account.AccountDBService;
 import war_ioc.account.AccountDataSet;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final AccountDBService accountDBService;
-
-    public LoginServlet(AccountDBService accountDBService) {
-        this.accountDBService = accountDBService;
-    }
+    private AccountDBService accountDBService;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
